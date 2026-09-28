@@ -40,19 +40,36 @@ It focuses on practical backend architecture, persistence, validation, JSON hand
 - Create, read, update and delete employee records
 - ORM-based database persistence
 - REST / MVC application structure
+- Role-based endpoint protection with `@RolesAllowed`
 - Bean validation
 - JSON serialisation
 - Maven dependency management
+
+## API Surface
+
+| Method | Resource | Access |
+|---|---|---|
+| `GET` | Employee collection | `USER`, `ADMIN` |
+| `POST` | Employee collection | `ADMIN` |
+| `PUT` | Employee by ID | `ADMIN` |
+| `DELETE` | Employee by ID | `ADMIN` |
+
+The exact base path is defined by the Jersey resource configuration in the application.
 
 ## Run Locally
 
 Make sure Java 17, Maven, MySQL and a compatible servlet container are available.
 
 ```bash
+mvn clean verify
 mvn clean package
 ```
 
 Configure the database connection used by the application, deploy the generated WAR to your servlet container, and start the application.
+
+## Quality & CI
+
+The repository includes a GitHub Actions workflow that verifies the Maven build on pushes and pull requests. Database credentials and runtime configuration should remain outside source control.
 
 ## Learning Focus
 
